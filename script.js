@@ -2,34 +2,42 @@ const choices = ['rock', 'paper', 'scissors']
 
 const getComputerChoice = () => choices[Math.trunc(Math.random()*3)]
 
-const playRound = function() {
-    let playerSelection = prompt('select rock, paper or scissors')
-    playerSelection = playerSelection.toLowerCase()
+let playerScore = 0
+let computerScore = 0
+
+
+
+const playRound = function(e) {
+    let playerSelection = e.target.textContent
     let computerSelection = getComputerChoice()
     let result
 
     if (playerSelection == computerSelection) {
-        result = 'it is a draw'
+        outcome.textContent = 'it is a draw'
     } else if(playerSelection == 'rock') {
-        result = computerSelection == 'paper' ? 'computer wins' : 'player wins'
+        outcome.textContent = computerSelection == 'paper' ? 'computer wins' : 'player wins'
     } else if(playerSelection == 'paper') {
-        result = computerSelection == 'rock' ? 'player wins' : 'computer wins'
+        outcome.textContent = computerSelection == 'rock' ? 'player wins' : 'computer wins'
     } else {
-        result = computerSelection == 'paper' ? 'player wins' : 'computer wins'
+        outcome.textContent = computerSelection == 'paper' ? 'player wins' : 'computer wins'
     }
     console.log(playerSelection, computerSelection)
+    if (outcome.textContent == 'player wins') playerScore++
+    else if(outcome.textContent == 'computer wins') computerScore++
+    resultext.textContent = `player score: ${playerScore} - computer score: ${computerScore}`
+    if (computerScore == 5) outcome.textContent = 'The final winner is the computer!'
+    else if (playerScore == 5) outcome.textContent = 'The final winner is the player!'
     return  result
 }
 
-let game = () => {
-    let player = 0
-    let computer = 0
-    for (let rounds = 0; rounds < 5; rounds++) {
-        let result = playRound()
-        if (result == 'it is a draw') continue
-        result == 'player wins' ? player++ : computer++
-    }
-    if (player == computer) return console.log('its a draw') 
-    player>computer ? console.log(`${player}, ${computer}, player wins`) : console.log(`${player}, ${computer}, computer wins`)
-    
+let options =  Array.from (document.querySelectorAll('.option'))
+let outcome = document.querySelector('.outcome')
+let resultext =document.querySelector('.score')
+outcome.textContent= 'make your choise!'
+resultext.textContent = `player score: ${playerScore} - computer score: ${computerScore}`
+
+for (item of options) {
+    item.addEventListener('click', playRound)
 }
+
+
