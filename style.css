@@ -1,0 +1,22 @@
+.options {
+    display: flex;
+    gap: 5px;
+}
+.option {
+    height: 100px;
+    width: 100px;
+    background-color: aqua;
+    border: 1px black solid;
+
+} 
+.option:hover {
+    background-color: aquamarine;
+}
+
+.ui {
+    width: 300px;
+    height: 100px;
+    background-color: aqua;
+    margin: 10px;
+    border: 1px black solid;
+}
